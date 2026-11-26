@@ -1,0 +1,16 @@
+{
+  "operators": [
+    {
+      "name": "Exists",
+      "path": "Operator.exists.dll"
+    },
+    {
+      "name": "DayOfWeek",
+      "path": "Operator.dayofweek.dll"
+    },
+    {
+      "name": "StrEquals",
+      "path": "Operator.strequals.dll"
+    }
+  ]
+}

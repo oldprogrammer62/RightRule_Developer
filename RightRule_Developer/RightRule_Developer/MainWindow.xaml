@@ -1,0 +1,46 @@
+﻿<Window x:Class="RightRule_Developer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RightRule Developer" Height="760" Width="1280" MinHeight="600" MinWidth="960"
+        Background="#F4F6F8" Closing="Window_Closing">
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="New RightRule session…" Click="NewSession_Click"/><MenuItem Header="Load RightRule session…" Click="LoadSession_Click"/><MenuItem Header="Remove RightRule session…" Click="RemoveSession_Click"/>
+        <Separator/><MenuItem Header="Save session" Click="Save_Click"/><Separator/><MenuItem Header="RightRule options…" Click="EditOptions_Click"/><Separator/><MenuItem Header="Exit" Click="Exit_Click"/>
+      </MenuItem>
+      <MenuItem Header="_Edit">
+        <MenuItem Header="Create dataset and data items…" Click="NewDataset_Click"/><MenuItem Header="Add data item to selected dataset…" Click="AddDataItem_Click"/><MenuItem Header="Edit selected dataset…" Click="EditDataset_Click"/>
+        <Separator/><MenuItem Header="Create rule…" Click="NewRule_Click"/><MenuItem Header="Create default rule…" Click="NewDefault_Click"/><MenuItem Header="Edit selected rule…" Click="EditRule_Click"/>
+      </MenuItem>
+      <MenuItem Header="_Export">
+        <MenuItem Header="Export rules to file…" Click="ExportRules_Click"/>
+        <MenuItem Header="Export data to file…" Click="ExportData_Click"/>
+      </MenuItem>
+      <MenuItem Header="_Help">
+        <MenuItem Header="Loaded operators and aliases…" Click="ShowOperators_Click"/>
+      </MenuItem>
+    </Menu>
+    <Border DockPanel.Dock="Top" Background="#E7ECF2" Padding="10,8">
+      <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+        <WrapPanel VerticalAlignment="Center"><TextBlock Text="Session" VerticalAlignment="Center" Margin="0,0,6,0"/><TextBlock x:Name="SessionNameText" Text="Not loaded" Width="190" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" FontWeight="Bold"/>
+          <TextBlock Text="Operators" VerticalAlignment="Center" Margin="14,0,5,0"/><ComboBox x:Name="OperatorsBox" Width="260" IsEnabled="False"/>
+        </WrapPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal"><ComboBox x:Name="MethodBox" Width="100" SelectedIndex="0" Margin="0,0,8,0"><ComboBoxItem Content="Single"/><ComboBoxItem Content="First"/><ComboBoxItem Content="Any"/><ComboBoxItem Content="All"/></ComboBox><Button x:Name="ApplyButton" Content="Apply rules" Padding="14,6" Click="Apply_Click"/></StackPanel>
+      </Grid>
+    </Border>
+    <Border DockPanel.Dock="Top" Background="#E7ECF2" Padding="10,4" Margin="0,0,0,4">
+      <Grid Margin="4,0"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0"><TextBlock Text="Context" VerticalAlignment="Center" Margin="0,0,8,0"/><ComboBox x:Name="ContextsBox" Width="200" HorizontalAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="ContextsBox_SelectionChanged"/></DockPanel>
+        <DockPanel Grid.Column="2"><TextBlock Text="Dataset" VerticalAlignment="Center" Margin="0,0,8,0"/><ComboBox x:Name="DatasetsBox" Width="200" HorizontalAlignment="Left" VerticalContentAlignment="Center" SelectionChanged="DatasetsBox_SelectionChanged"/></DockPanel>
+      </Grid>
+    </Border>
+    <StatusBar DockPanel.Dock="Bottom"><StatusBarItem><TextBlock x:Name="StatusText" Text="No session loaded"/></StatusBarItem></StatusBar>
+    <Grid Margin="14"><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="12"/><RowDefinition Height="190"/></Grid.RowDefinitions>
+      <GroupBox x:Name="RulesGroup" Grid.Column="0" Padding="8"><GroupBox.Header><TextBlock x:Name="RulesHeader" Text="Registered Rules" FontWeight="Bold"/></GroupBox.Header><DockPanel><TextBlock x:Name="RuleCountText" DockPanel.Dock="Bottom" Foreground="#667085" Margin="2,8,0,0"/><DataGrid x:Name="RulesGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" MouseDoubleClick="RulesGrid_MouseDoubleClick"><DataGrid.ContextMenu><ContextMenu><MenuItem Header="Add Rule" Click="NewRule_Click"/><MenuItem Header="Export Rules…" Click="ExportRules_Click"/></ContextMenu></DataGrid.ContextMenu><DataGrid.Columns><DataGridTextColumn Header="Number" Binding="{Binding Number}" Width="70"/><DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/><DataGridTextColumn Header="Decision" Binding="{Binding Decision}" Width="*"/><DataGridTextColumn Header="Statement" Binding="{Binding Statement}" Width="2*"/></DataGrid.Columns></DataGrid></DockPanel></GroupBox>
+      <GroupBox Grid.Column="2" Padding="8"><GroupBox.Header><TextBlock Text="Registered Data" FontWeight="Bold"/></GroupBox.Header><DataGrid x:Name="DataGridView" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" MouseDoubleClick="DataGridView_MouseDoubleClick"><DataGrid.ContextMenu><ContextMenu><MenuItem Header="Add Data Item" Click="AddDataItem_Click"/><MenuItem Header="Export Data…" Click="ExportData_Click"/></ContextMenu></DataGrid.ContextMenu><DataGrid.Columns><DataGridTextColumn Header="Dataset Name" Binding="{Binding DatasetName}" Width="*"/><DataGridTextColumn Header="Data Item Name" Binding="{Binding ItemName}" Width="*"/><DataGridTextColumn Header="Data Item Value" Binding="{Binding Value}" Width="2*"/></DataGrid.Columns></DataGrid></GroupBox>
+      <GroupBox Header="Activity and results" Grid.Row="2" Grid.ColumnSpan="3" Padding="8"><TextBox x:Name="LogBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" FontFamily="Consolas"><TextBox.ContextMenu><ContextMenu><MenuItem Header="Clear activity and results" Click="ClearLog_Click"/></ContextMenu></TextBox.ContextMenu></TextBox></GroupBox>
+    </Grid>
+  </DockPanel>
+</Window>
