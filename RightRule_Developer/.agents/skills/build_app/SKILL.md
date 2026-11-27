@@ -125,3 +125,4 @@ The RightRule library packages are available in: "C:\Development\BSoft\RightRule
 For RightRule library source code reference only - you can look at files in C:\Development\BSoft\RightRule\src
 For RightRule Common component source code reference only - you can look in C:\Development\BSoft\RightRule\rightrule.system.common
 
+Create and when necessary update a github readme.md doc for this project
