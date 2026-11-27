@@ -138,6 +138,14 @@ public partial class MainWindow : Window
         }
         dialog.ShowDialog();
     }
+    private void About_Click(object sender, RoutedEventArgs e)
+    {
+        static string VersionOf(string name) => AppDomain.CurrentDomain.GetAssemblies()
+            .FirstOrDefault(assembly => assembly.GetName().Name == name)?.GetName().Version?.ToString() ?? "not loaded";
+        MessageBox.Show(this,
+            $"RightRule Developer\n\nRightRule: {VersionOf("RightRule")}\nRightRule.System.Common: {VersionOf("RightRule.System.Common")}",
+            "About RightRule Developer", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
     private void RefreshRules()
     {
         var ctx = ContextsBox.SelectedItem as string;
@@ -290,9 +298,13 @@ public partial class MainWindow : Window
         }
         var dataCheck = AddCheck("Enable data checks", current.DataCheck);
         var diagnostics = AddCheck("Enable diagnostics", current.Diagnostics);
+        form.Children.Add(new Border { Height = 2, Background = System.Windows.Media.Brushes.Gray, Margin = new Thickness(0, 12, 0, 8) });
         var loadDefault = AddCheck("Load default operators", current.LoadDefaultOperators);
         var defaultNames = AddText("Default operator names (one per line; blank means all)", string.Join(Environment.NewLine, current.DefaultOperatorNames), 65);
+        form.Children.Add(new Border { Height = 2, Background = System.Windows.Media.Brushes.Gray, Margin = new Thickness(0, 12, 0, 8) });
         var loadCustom = AddCheck("Load custom operators", current.LoadCustomOperators);
+        var customNames = AddText("Custom operator names (one per line; blank means all)", string.Join(Environment.NewLine, current.CustomOperatorNames), 65);
+        form.Children.Add(new Border { Height = 2, Background = System.Windows.Media.Brushes.Gray, Margin = new Thickness(0, 12, 0, 8) });
         form.Children.Add(new TextBlock { Text = "Custom operator configuration path", Margin = new Thickness(0, 8, 0, 3) });
         var pathRow = new DockPanel();
         var browsePath = new Button { Content = "Browse…", MinWidth = 68, Height = 25, FontSize = 11, Padding = new Thickness(5, 2, 5, 2), Margin = new Thickness(8, 0, 0, 0), VerticalAlignment = VerticalAlignment.Top };
@@ -322,7 +334,6 @@ public partial class MainWindow : Window
             };
             if (picker.ShowDialog(dialog) == true) customPath.Text = picker.FileName;
         };
-        var customNames = AddText("Custom operator names (one per line; blank means all)", string.Join(Environment.NewLine, current.CustomOperatorNames), 65);
         root.Children.Add(new ScrollViewer { Content = form, VerticalScrollBarVisibility = ScrollBarVisibility.Auto });
         dialog.Content = root;
         save.Click += (_, _) =>

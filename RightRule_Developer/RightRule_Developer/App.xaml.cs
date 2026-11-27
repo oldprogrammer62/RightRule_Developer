@@ -40,18 +40,28 @@ public partial class App : Application
         {
             options = File.Exists(OptionsFilePath)
                 ? JsonSerializer.Deserialize<RightRuleOptions>(File.ReadAllText(OptionsFilePath)) ?? new RightRuleOptions()
-                : new RightRuleOptions();
+                : CreateDefaultOptions();
         }
         catch (Exception ex)
         {
             MessageBox.Show($"Could not load RightRule options. Defaults will be used.\n\n{ex.Message}", "RightRule options", MessageBoxButton.OK, MessageBoxImage.Warning);
-            options = new RightRuleOptions();
+            options = CreateDefaultOptions();
         }
 
         if (string.IsNullOrWhiteSpace(options.CustomOperatorLibraryPath))
             options.CustomOperatorLibraryPath = Path.Combine(AppContext.BaseDirectory, "Operators", "CustomOperators", "customoperatorconfig.json");
         return options;
     }
+    private static RightRuleOptions CreateDefaultOptions() => new()
+    {
+        Diagnostics = true,
+        DataCheck = false,
+        LoadDefaultOperators = true,
+        DefaultOperatorNames = [],
+        LoadCustomOperators = true,
+        CustomOperatorNames = [],
+        CustomOperatorLibraryPath = Path.Combine(AppContext.BaseDirectory, "Operators", "CustomOperators", "customoperatorconfig.json")
+    };
     protected override void OnExit(ExitEventArgs e)
     {
         Services?.Dispose();

@@ -39,6 +39,18 @@ The "Custom Operator configuration path", needs to include a button to locate th
 The file text box does not work well with horizontal scrolling. Make it a read only text box that is 5 lines deep.
 Shrink the button and place it level with top of the text box, to the right.
 When the File dialog opens, start it in the folder specified in the "Custom Operator configuration path". If that is empty start in the root of the session folders
+The RightRule options dialog should show options in this order top to bottom:
+Enable Data Checks
+Enable Diagnostics
+(Draw line across form to separate sections)
+Load Default Operators
+Default Operator names (one per line; blank means all)
+(Draw line across form to separate sections)
+Load Custom Operators
+Custom Operator names (one per line; blank means all)
+(Draw line across form to separate sections)
+Custom Operator configuration path
+Can you make the line heavier or increase white space above and below each separator line?
 
 - Edit
 Create and register new Dataset and associated data items. Assume simple data structure.
@@ -58,6 +70,8 @@ Sample Data file can be found in: "C:\Development\BSoft\RightRule_Developer\Righ
 
 - Help
 Option to show list of loaded Operators and the aliases for each Operator.
+Add "About RightRule Developer".
+In "About RightRule Developer" include version of RightRule and RightRule.System.Common libraries.
 
 - Function Ribbon at top of screen below menu bar (Left portion of ribbon)
 Show name of loaded Session. Text should be bold.
@@ -75,11 +89,12 @@ When Data is loaded, the result of data loading should be shown on screen
 When Rules are loaded, the results of rule loading should be shown on screen
 
 # Form layout
-Left - Rules List. Title should be in bold "Registered Rules" followed by " - " followed by selected Context. Include headers: Number, Name, Decision, Statement. Double click row should open modal window to allow edit of rule, or deletion of rule. DecisionData can be JSON so you can add the "JSON" comment. Rules list should expand to half screen width.
+Left - Rules List. Title should be in bold "Registered Rules" followed by " - " followed by selected Context. Include headers: Context, Number, Name, Decision, Statement. Double click row should open modal window to allow edit of rule, or deletion of rule. DecisionData can be JSON so you can add the "JSON" comment. Rules list should expand to half screen width.
 Right Click menu with option to "Add Rule". Include "Export Rules" option.
 When adding a Rule, all fields should be on one single Modal dialog. Make sure the dialog is deep enough to contain all controls.
 The Rule dialog has a "Delete" option, if clicked it should offer "Are you sure?" dialog.
 Include a button on the Rule Dialog to syntax check the statement. The button should be placed beside the statement text box, right hand side.
+The rule panel should be a bit wider and may be more than 50% of the main form width.
 
 Right - Data List. Title should be in bold "Registered Data". Include headers: Dataset Name, Data Item Name, Data Item Value. Double click row should open modal window and allow edit of name and value, or deletion of data item. Value is not JSON so do not add JSON comment to edit box for Value. Edit Data modal window needs to be deep enough to show all controls. If last data item is deleted, dataset should be deleted.
 Right Click menu with option to "Add Data Item". Include "Export Data" option.
